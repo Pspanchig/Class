@@ -23,22 +23,26 @@ public class Tests
     [Test]
     public void HeapifyDemo()
     {
-        var heap = new BinaryHeap<int>{};
-        heap.Add(7);
-        heap.Add(1);
-        heap.Add(2);
-        heap.Add(5);
-        heap.Add(3);
-        heap.Add(1);
-        heap.Add(0);
+        var heap = new BinaryHeap<int>{new int []{1,2,3,1,2,3}};
+        Assert.That(heap.RemoveMin(), Is.EqualTo(1));
+        Assert.That(heap.RemoveMin(), Is.EqualTo(2));
+        Assert.That(heap.RemoveMin(), Is.EqualTo(3));
+        Assert.That(heap.RemoveMin(), Is.EqualTo(1));
+        Assert.That(heap.RemoveMin(), Is.EqualTo(2));
+        Assert.That(heap.RemoveMin(), Is.EqualTo(3));
     }
 }
 
 public class BinaryHeap<T> where T: IComparable<T>{
 
+    
     private List<T> values;
     // private List<T> values = new List<T>(default);
-    
+    private void Heapify(){
+        for(int i = (values.Count-1)/2; i >= 0; i++){
+            ShiftDown(i)
+        }
+    }
     public BinaryHeap(IEnumerable<T> initialValues){
         values.AddRange(initialValues);
     }
